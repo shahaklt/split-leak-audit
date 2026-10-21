@@ -1,0 +1,39 @@
+{
+  "n_segments": 199,
+  "n_patients": 29,
+  "pvc_segment_fraction": 0.528,
+  "patient_test_records": [
+    "100",
+    "105",
+    "108",
+    "112",
+    "116",
+    "119",
+    "123",
+    "201",
+    "205",
+    "209"
+  ],
+  "leaky_split": {
+    "audit_errors": 1,
+    "audit_warnings": 1,
+    "audit_findings": [
+      "patient_overlap",
+      "near_duplicate_rows",
+      "preprocessing_fit"
+    ],
+    "mean_auc": 0.936,
+    "mean_balanced_accuracy": 0.874
+  },
+  "patient_split": {
+    "audit_errors": 0,
+    "audit_warnings": 1,
+    "audit_findings": [
+      "near_duplicate_rows",
+      "preprocessing_fit"
+    ],
+    "mean_auc": 0.766,
+    "mean_balanced_accuracy": 0.773
+  },
+  "seeds": 5
+}
