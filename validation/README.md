@@ -35,3 +35,26 @@ Full output: `results.json`.
 - 29 patients and 199 segments. Each patient-level test set has only 10 records, so the AUC estimate is noisy.
 - Features are simple RR statistics computed from annotations, not from the ECG signal.
 - One label definition, one model. This shows the audit's behavior on real data, not a claim about arrhythmia detection performance.
+
+## Sleep-EDF validation (wake vs. sleep, 3 subjects)
+
+Data: **Sleep-EDF Database Expanded**, sleep-cassette subset (PhysioNet; Kemp et al. 2000; ODC Attribution License v1.0). Subjects SC4001, SC4031, SC4041, one night each, EEG channels Fpz-Cz and Pz-Oz, expert hypnograms in 30-second epochs. Wake = 0; N1, N2, N3, and REM = 1. Movement and unscored epochs dropped. 8,039 epochs, 69% wake.
+
+Features per epoch: log band power (delta, theta, alpha, sigma, beta), relative band power, and log variance per channel. Random forest, 200 trees, balanced class weights.
+
+| Split | Balanced accuracy | AUC | `split-leak-audit` result |
+|---|---|---|---|
+| random epoch split (75/25, leaky) | 0.989 | 0.999 | 1 error: `patient_overlap` |
+| leave-one-subject-out | 0.936 (folds 0.948, 0.930, 0.929) | 0.993 | no errors |
+
+Reproduce:
+
+```bash
+PYTHONPATH=src python3 validation/validate_sleep_split.py --data-dir <dir with the SC40x1E0-PSG.edf and hypnogram files> --out validation/sleep_results.json
+```
+
+Full output: `sleep_results.json`.
+
+**What this shows:** the random split inflates balanced accuracy by about 5 points, and the audit catches it. The AUC gap is small because wake vs. sleep is an easy task from EEG band power.
+
+**Limits:** 3 of the 6 planned subjects; one night each; healthy, older cassette-study subjects, not clinical sleep patients; one binary task (wake vs. sleep), not full staging.

@@ -1,0 +1,47 @@
+{
+  "dataset": "Sleep-EDF Expanded, sleep-cassette, one night per subject",
+  "subjects": [
+    "SC4001",
+    "SC4031",
+    "SC4041"
+  ],
+  "n_epochs": 8039,
+  "wake_fraction": 0.689,
+  "random_epoch_split": {
+    "balanced_accuracy": 0.989,
+    "auc_roc": 0.999,
+    "audit_errors": 1,
+    "audit_findings": [
+      "patient_overlap",
+      "preprocessing_fit"
+    ]
+  },
+  "leave_one_subject_out": {
+    "folds": [
+      {
+        "balanced_accuracy": 0.947717901507698,
+        "auc_roc": 0.9891460467884062,
+        "held_out_subject": "SC4001",
+        "n_test_epochs": 2650
+      },
+      {
+        "balanced_accuracy": 0.9300384668223657,
+        "auc_roc": 0.9987448604596393,
+        "held_out_subject": "SC4031",
+        "n_test_epochs": 2820
+      },
+      {
+        "balanced_accuracy": 0.929183278851665,
+        "auc_roc": 0.9923879976569733,
+        "held_out_subject": "SC4041",
+        "n_test_epochs": 2569
+      }
+    ],
+    "mean_balanced_accuracy": 0.936,
+    "mean_auc_roc": 0.993,
+    "audit_first_fold_errors": 0,
+    "audit_first_fold_findings": [
+      "preprocessing_fit"
+    ]
+  }
+}
